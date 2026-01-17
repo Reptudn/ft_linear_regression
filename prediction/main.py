@@ -1,1 +1,0 @@
-print('Hello i am going to predict hehe')

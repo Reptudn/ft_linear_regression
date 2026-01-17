@@ -1,0 +1,30 @@
+import sys
+
+argv = sys.argv
+
+if (len(argv) != 3):
+    print(f"Usage: python3 {argv[0]} theta0 theta1")
+    sys.exit(1)
+
+try:
+    theta0 = float(argv[1])
+    theta1 = float(argv[2])
+except:
+    print(f"theta0 and theta1 both have to be valid float values!")
+    sys.exit(1)
+
+def estimatePrice() -> float:
+        return theta0 + (theta0 * mileage)
+
+print('ft_linear_progression (by jkauker)\n')
+while 42:
+    mileage = input('Enter the car milege: ')
+    try:
+        mileage = float(mileage)
+    except:
+        print(f"Failed to convert mileage to a useable float value: {mileage}")
+        print("Try again...\n")
+        continue
+
+    print(f"The estimated price is: {estimatePrice()}eur\n")
+
