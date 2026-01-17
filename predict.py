@@ -13,7 +13,7 @@ except:
     print(f"theta0 and theta1 both have to be valid float values!")
     sys.exit(1)
 
-def estimatePrice() -> float:
+def estimatePrice(mileage) -> float:
         return theta0 + (theta0 * mileage)
 
 print('ft_linear_progression (by jkauker)\n')
@@ -26,5 +26,5 @@ while 42:
         print("Try again...\n")
         continue
 
-    print(f"The estimated price is: {estimatePrice()}eur\n")
+    print(f"The estimated price is: {estimatePrice(mileage)}eur\n")
 
