@@ -25,7 +25,7 @@ try:
             print("Try again...\n")
             continue
 
-        print(f"The estimated price is: {shared.estimatePrice(mileage, theta0, theta1)}eur\n")
+        print(f"The estimated price is: {shared.estimatePrice(mileage, theta0, theta1):.2f}eur\n")
 except:
     print("\n\nThanks for using the price estimator.")
     sys.exit(0)
