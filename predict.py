@@ -1,4 +1,5 @@
 import sys
+import shared
 
 argv = sys.argv
 
@@ -13,18 +14,19 @@ except:
     print(f"theta0 and theta1 both have to be valid float values!")
     sys.exit(1)
 
-def estimatePrice(mileage) -> float:
-        return theta0 + (theta0 * mileage)
-
 print('ft_linear_progression (by jkauker)\n')
-while 42:
-    mileage = input('Enter the car milege: ')
-    try:
-        mileage = float(mileage)
-    except:
-        print(f"Failed to convert mileage to a useable float value: {mileage}")
-        print("Try again...\n")
-        continue
+try:
+    while True:
+        mileage = input('Enter the car milege: ')
+        try:
+            mileage = float(mileage)
+        except:
+            print(f"Failed to convert mileage to a useable float value: {mileage}")
+            print("Try again...\n")
+            continue
 
-    print(f"The estimated price is: {estimatePrice(mileage)}eur\n")
+        print(f"The estimated price is: {shared.estimatePrice(mileage, theta0, theta1)}eur\n")
+except:
+    print("\n\nThanks for using the price estimator.")
+    sys.exit(0)
 
