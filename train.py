@@ -32,22 +32,6 @@ DATA_CSV['price'] = (DATA_CSV['price'] - price_mean) / price_std
 theta0 = 0
 theta1 = 0
 
-# def gradient_descend(theta0_curr, theta1_curr, points):
-#     theta0_gradient = 0
-#     theta1_gradient = 0
-
-#     n = len(points)
-#     for i in range(n):
-#         mileage = points.iloc[i].km
-#         price = points.iloc[i].price
-
-#         theta0_gradient += -(2/n) * mileage * (price - (theta0_curr * mileage + theta1_curr))
-#         theta1_gradient += -(2/n) * (price - ((theta0_curr * price + theta1_curr)))
-
-#     theta0 = theta0_curr - theta0_gradient * L
-#     theta1 = theta1_curr - theta1_gradient * L
-#     return theta0, theta1
-
 def linear_regression(theta0_curr, theta1_curr, points):
     theta0_tmp = 0
     theta1_tmp = 0
@@ -62,8 +46,8 @@ def linear_regression(theta0_curr, theta1_curr, points):
         theta0_tmp += error
         theta1_tmp += error * km
 
-    theta0_tmp = theta0_curr - L * (1 / m) * theta0_tmp
-    theta1_tmp = theta1_curr - L * (1 / m) * theta1_tmp
+    theta0_tmp = theta0_curr - L * (2 / m) * theta0_tmp
+    theta1_tmp = theta1_curr - L * (2 / m) * theta1_tmp
 
     return theta0_tmp, theta1_tmp
 
@@ -72,6 +56,7 @@ for i in range(EPOCHS):
         print(f"{i} - Theta0 is now: {theta0}")
         print(f"{i} - Theta1 is now: {theta1}")
     theta0, theta1 = linear_regression(theta0, theta1, DATA_CSV)
+
 
 # normalize the values back
 theta1_orig = theta1 * (price_std / km_std)
@@ -84,4 +69,7 @@ print(f"Predict the price with: python3 predict.py {theta0_orig} {theta1_orig}")
 
 matplotlib.pyplot.scatter(DATA_CSV.km, DATA_CSV.price, color="black")
 matplotlib.pyplot.plot(DATA_CSV.km, theta0 + theta1 * DATA_CSV.km)
-matplotlib.pyplot.show()
+try:
+    matplotlib.pyplot.show()
+except:
+    print("Bye Bye")
