@@ -1,9 +1,11 @@
+#!/usr/bin/python3
 import sys
 import pandas # just for loading the csv effecively
 import matplotlib.pyplot # to show the data (probably not useable in the project submission due to subject restrictions)
 import shared
 
-# the training program here
+theta0 = 0
+theta1 = 0
 
 argv = sys.argv
 
@@ -28,10 +30,6 @@ price_std = DATA_CSV['price'].std()
 DATA_CSV['km'] = (DATA_CSV['km'] - km_mean) / km_std
 DATA_CSV['price'] = (DATA_CSV['price'] - price_mean) / price_std
 
-
-theta0 = 0
-theta1 = 0
-
 def linear_regression(theta0_curr, theta1_curr, points):
     theta0_tmp = 0
     theta1_tmp = 0
@@ -46,16 +44,22 @@ def linear_regression(theta0_curr, theta1_curr, points):
         theta0_tmp += error
         theta1_tmp += error * km
 
-    theta0_tmp = theta0_curr - L * (2 / m) * theta0_tmp
-    theta1_tmp = theta1_curr - L * (2 / m) * theta1_tmp
+    theta0_tmp = L * (1 / m) * theta0_tmp
+    theta1_tmp = L * (1 / m) * theta1_tmp
 
     return theta0_tmp, theta1_tmp
 
-for i in range(EPOCHS):
-    if (i % 50 == 0):
-        print(f"{i} - Theta0 is now: {theta0}")
-        print(f"{i} - Theta1 is now: {theta1}")
-    theta0, theta1 = linear_regression(theta0, theta1, DATA_CSV)
+try:
+    for i in range(EPOCHS):
+        if (i % 50 == 0):
+            print(f"{i} - Theta0 is now: {theta0}")
+            print(f"{i} - Theta1 is now: {theta1}")
+        theta0_tmp, theta1_tmp = linear_regression(theta0, theta1, DATA_CSV)
+        theta0 -= theta0_tmp
+        theta1 -= theta1_tmp
+except:
+    print("\n\nTraining interrupted.")
+    print("Using the last known values for theta0 and theta1\n\n")
 
 
 # normalize the values back
@@ -67,8 +71,16 @@ print(f"Theta1 (original scale): {theta1_orig}")
 print()
 print(f"Predict the price with: python3 predict.py {theta0_orig} {theta1_orig}")
 
+try:
+    with open("theta.txt", "w") as f:
+        f.write(f"{theta0_orig}\n")
+        f.write(f"{theta1_orig}\n")
+except:
+    print("Could not write to theta.txt")
+
 matplotlib.pyplot.scatter(DATA_CSV.km, DATA_CSV.price, color="black")
 matplotlib.pyplot.plot(DATA_CSV.km, theta0 + theta1 * DATA_CSV.km)
+matplotlib.pyplot.title("Linear Regression")
 try:
     matplotlib.pyplot.show()
 except:

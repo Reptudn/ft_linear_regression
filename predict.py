@@ -1,20 +1,27 @@
+#!/usr/bin/python3
 import sys
 import shared
 
-argv = sys.argv
-
-if (len(argv) != 3):
-    print(f"Usage: python3 {argv[0]} theta0 theta1")
-    sys.exit(1)
+try:
+    with open("theta.txt", "r") as f:
+        theta0 = f.readline().strip()
+        theta1 = f.readline().strip()
+except:
+    print("Could not read theta.txt!\nUsing default values.")
+    theta0 = 0
+    theta1 = 0
 
 try:
-    theta0 = float(argv[1])
-    theta1 = float(argv[2])
+    theta0 = float(theta0)
+    theta1 = float(theta1)
 except:
     print(f"theta0 and theta1 both have to be valid float values!")
     sys.exit(1)
 
 print('ft_linear_progression (by jkauker)\n')
+print(f"Theta0: {theta0}")
+print(f"Theta1: {theta1}")
+print()
 try:
     while True:
         mileage = input('Enter the car milege: ')
@@ -28,5 +35,5 @@ try:
         print(f"The estimated price is: {shared.estimatePrice(mileage, theta0, theta1):.2f}eur\n")
 except:
     print("\n\nThanks for using the price estimator.")
-    sys.exit(0)
+
 
