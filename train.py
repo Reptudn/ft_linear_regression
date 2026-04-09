@@ -69,7 +69,7 @@ theta0_orig = theta0 * price_std - theta1_orig * km_mean + price_mean
 print(f"Theta0 (original scale): {theta0_orig}")
 print(f"Theta1 (original scale): {theta1_orig}")
 print()
-print(f"Predict the price with: python3 predict.py {theta0_orig} {theta1_orig}")
+print(f"Predict the price with: python3 predict.py")
 
 try:
     with open("theta.txt", "w") as f:
