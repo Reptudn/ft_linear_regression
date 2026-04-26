@@ -19,3 +19,22 @@ This is the amount of steps done each epoch to try to reduce the error rate.
 Imagine math class back then.. y = m*x+b
 -> m is Theta0
 -> b is Theta1
+
+# How does this work? Is this magic?
+> We want to find a line with the least error rate.
+> Line function: y = mx + b -> The estimatePrice() func
+>
+> y is the price we want to predict
+> x is the mileage we enter
+> theta1 is the slope aka m
+> theta0 is the bias aka b
+
+## Calculate the MSE (mean squared error):
+> Basically for each point Predicted_Price - Actual_Price
+
+For each point we need to calculate this and the lower the MSE is the better our line function is aka our thetas.
+
+## Algo
+- Define a start point -> default values for theta0 and theta1
+- We go downhill after every step a bit (defined by the learning rate)
+  - The bigger the learning rate the less the chance to find the best theta values because we might overshoot it and "bounce around" the perfect minimum
