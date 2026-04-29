@@ -17,8 +17,8 @@ if len(argv) != 4:
 
 try:
     DATA_CSV = pandas.read_csv(argv[1])
-    EPOCHS = int(argv[2])
-    L = float(argv[3])
+    EPOCHS = int(argv[2]) # how often
+    L = float(argv[3]) # the bigger the learning rate the easier it is to overshoot the minimum thetas
 except ValueError:
     print(
         "ERROR: The CSV file need to be accessable from the given path and the epochs(int) and learning(float) var needs to be their reaspective type"
@@ -45,7 +45,7 @@ def linear_regression(theta0_curr, theta1_curr, points) -> tuple[float, float]:
         km = points.iloc[i].km
         price = points.iloc[i].price
 
-        error = shared.estimatePrice(km, theta0_curr, theta1_curr) - price
+        error = shared.estimatePrice(km, theta0_curr, theta1_curr) - price # error: predicted - actual price
 
         theta0_tmp += error
         theta1_tmp += error * km
@@ -62,8 +62,8 @@ try:
             print(f"{i} - Theta0 is now: {theta0}")
             print(f"{i} - Theta1 is now: {theta1}")
         theta0_tmp, theta1_tmp = linear_regression(theta0, theta1, DATA_CSV)
-        theta0 -= theta0_tmp
-        theta1 -= theta1_tmp
+        theta0 -= theta0_tmp # when theta0 is too big the error will be bigger so we subtract (go downhill)
+        theta1 -= theta1_tmp # same logic as theta0 but for the slope
 except KeyboardInterrupt:
     print("\n\nTraining interrupted.")
     print("Using the last known values for theta0 and theta1\n\n")
