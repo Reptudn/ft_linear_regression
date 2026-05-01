@@ -3,9 +3,9 @@ Car price prediction
 
 ## How to run
 1. simply run `source .venv/bin/activate` to enter the venv
-2. Train the model by running `python3 train.py <csv datasheet> <epochs> <learning rate>`
+2. Train the model by running `python3 train.py <csv datasheet> <epochs> <learning rate>` (the more epochs the better)
 > Once the training is done you will get the theta0 and theta1 printed to the console
-3. Run the prediction with `python3 predict.py <theta0> <theta1>` and you will be able to enter the cars mileage and then get the estimated price.
+3. Run the prediction with `python3 predict.py` and you will be able to enter the cars mileage and then get the estimated price.
 
 ## Whats those weird words?
 ### epochs
@@ -38,26 +38,4 @@ For each point we need to calculate this and the lower the MSE is the better our
 - Define a start point -> default values for theta0 and theta1
 - We go downhill after every step a bit (defined by the learning rate)
   - The bigger the learning rate the less the chance to find the best theta values because we might overshoot it and "bounce around" the perfect minimum
-
-Initialize θ0 = 0, θ1 = 0
-(start with a flat horizontal line through the origin)
-│
-└─ Repeat for EPOCHS iterations:
-   │
-   ├─ For every data point (km, price):
-   │     predicted = θ0 + θ1 · km          ← where does our current line say the price should be?
-   │     error     = predicted - actual     ← how far off are we? (negative = undershot, positive = overshot)
-   │
-   │     grad_θ0 += error                  ← θ0 shifts the whole line up/down, so gradient = just the error
-   │     grad_θ1 += error · km             ← θ1 controls the slope, so gradient = error weighted by km
-   │                                           (big km values matter more for the slope)
-   │
-   ├─ Average and scale the gradients:
-   │     grad_θ0 = (L / m) · grad_θ0      ← divide by m to get the mean, multiply by learning rate L
-   │     grad_θ1 = (L / m) · grad_θ1
-   │
-   └─ Update the parameters (move opposite to the gradient = downhill on the loss curve):
-         θ0 -= grad_θ0
-         θ1 -= grad_θ1
-│
-After all epochs → denormalize θ0, θ1 back to real-world scale → save
+- after each epoch, both thetas are returned and depending on if they are positive or negative they are adjusted by subtracting the error and multiplied by the learning rate to find the slope ( theta1 * the mileage of the current point)
