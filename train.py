@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys
 
-import matplotlib.pyplot  # to show the data (probably not useable in the project submission due to subject restrictions)
+import matplotlib.pyplot # just to display the graph
 import pandas  # just for loading the csv effecively
 
 import shared
